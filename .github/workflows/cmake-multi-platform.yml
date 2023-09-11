@@ -50,6 +50,12 @@ jobs:
       run: |
         echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
 
+    - name: Install dependecies
+      shell: bash
+      run: |
+        apt update
+        apt install make git zlib1g-dev libssl-dev gperf -y
+
     - name: Configure CMake
       run: >
         cmake -B ${{ steps.strings.outputs.build-output-dir }}
