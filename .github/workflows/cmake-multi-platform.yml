@@ -48,7 +48,7 @@ jobs:
       id: strings
       shell: bash
       run: |
-        echo "build-output-dir=${{ github.workspace }}/telegram-bot-api/build" >> "$GITHUB_OUTPUT"
+        echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
 
     - name: Configure CMake
       run: >
@@ -57,8 +57,7 @@ jobs:
         -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
         -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
         -DCMAKE_INSTALL_PREFIX:PATH= ${{ github.workspace }}/bot-api
-        -S ${{ github.workspace }}/telegram-bot-api
-
+        -S ${{ github.workspace }}
     - name: ls
       shell: bash
       run: |
