@@ -64,10 +64,11 @@ jobs:
         -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
         -DCMAKE_INSTALL_PREFIX:PATH= ${{ github.workspace }}/bot-api
         -S ${{ github.workspace }}
+ 
+    - name: Build
+      run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }}
+
     - name: ls
       shell: bash
       run: |
         ls ${{ github.workspace }}/bot-api
-
-    - name: Build
-      run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }}
