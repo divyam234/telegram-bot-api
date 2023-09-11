@@ -53,8 +53,8 @@ jobs:
     - name: Install dependecies
       shell: bash
       run: |
-        apt update
-        apt install make git zlib1g-dev libssl-dev gperf -y
+        sudo apt update
+        sudo apt install make git zlib1g-dev libssl-dev gperf -y
 
     - name: Configure CMake
       run: >
