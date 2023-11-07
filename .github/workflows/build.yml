@@ -30,7 +30,7 @@ jobs:
             zip telegram-bot-api-$VERSION-linux-amd64.zip telegram-bot-api
 
     - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
+      uses: softprops/action-gh-release@v1
+      with:
           tag_name: ${{ env.VERSION }}
           files: telegram-bot-api-${{ env.VERSION }}-linux-amd64.zip
