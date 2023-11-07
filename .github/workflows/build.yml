@@ -1,0 +1,36 @@
+name: Build
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v4
+      with:
+          submodules: true
+          
+    - name: Install dependecies
+      shell: bash
+      run: |
+        sudo apt update
+        sudo apt install make git zlib1g-dev zip libssl-dev gperf -y
+        
+    - name: Build
+      run: |
+            mkdir build && cd build
+            cmake -DCMAKE_BUILD_TYPE=Release  ..
+            VERSION=$(cmake --system-information | awk -F= '$1~/CMAKE_PROJECT_VERSION:STATIC/{print$2}')
+            echo "VERSION=$(echo $VERSION)" >> $GITHUB_ENV
+            cmake --build . -j $nproc
+            zip telegram-bot-api-$VERSION-linux-amd64.zip telegram-bot-api
+
+    - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ env.VERSION }}
+          files: telegram-bot-api-${{ env.VERSION }}-linux-amd64.zip
